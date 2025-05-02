@@ -39,6 +39,11 @@ function Home() {
               Start
             </button>
           </Link>
+          <Link to="/dashboard">
+            <button className="bg-blue-500 text-white p-4 mt-4 py-2 px-5  rounded hover:bg-blue-600">
+              Dashboard
+            </button>
+          </Link>
         </div>
       )}
     </div>
