@@ -9,35 +9,44 @@ function Form() {
   const questions = [
     {
       id: 1,
-      question: "What is React?",
+      question: "What platforms do you use to watch Media One?",
       options: [
-        "A JavaScript library for building user interfaces",
-        "A programming language",
-        "A database management system",
-        "A server-side framework",
+        "Home TV",
+        "YouTube",
+        "Social Media",
+        "eVision"
       ],
-      correctAnswer: 0,
-      type: "single-choice",
+      type: "multiple-select",
     },
     {
       id: 2,
-      question: "How would you describe your experience with React hooks?",
-      type: "opinion",
-      placeholder: "Share your thoughts and experiences with React hooks...",
+      question: "What programs do you watch on Media One?",
+      options: [
+        "Middle East Hour",
+        "Out of focus",
+        "Weekend Arabia",
+        "Media Scan",
+        "World with us"
+      ],
+      type: "multiple-select",
     },
     {
       id: 3,
-      question: "Select all the React hooks you have used:",
+      question: "Which content do you like the most?",
       options: [
-        "useState",
-        "useEffect",
-        "useContext",
-        "useReducer",
-        "useCallback",
-        "useMemo",
-        "useRef",
+        "Gulf Related",
+        "General",
+        "Tech",
+        "Innovative",
+        "Sensational"
       ],
       type: "multiple-select",
+    },
+    {
+      id: 4,
+      question: "Do you have any suggestions to improve our content?",
+      type: "opinion",
+      placeholder: "Share your thoughts and suggestions to help us improve...",
     },
   ];
 
@@ -249,7 +258,7 @@ function Form() {
     }
   };
 
-  // Reset quiz
+  // Reset survey
   const handleRestart = () => {
     setCurrentQuestion(0);
     setSelectedOption(null);
@@ -273,7 +282,7 @@ function Form() {
       .join(", ");
   };
 
-  // Contact form step after quiz completion
+  // Contact form step after survey completion
   if (showContactForm) {
     return (
       <div className="flex flex-col items-center justify-center p-8 bg-white rounded-xl shadow-lg max-w-md mx-auto">
@@ -282,7 +291,7 @@ function Form() {
         </div>
         <h2 className="text-2xl font-bold mb-4 text-gray-800">Almost Done!</h2>
         <p className="text-gray-600 mb-6">
-          Please fill in your details to see your results.
+          Please fill in your details to complete the survey.
         </p>
 
         <div className="w-full mb-4">
@@ -344,124 +353,63 @@ function Form() {
               : "bg-green-600 text-white hover:bg-green-700"
           }`}
         >
-          View Results
+          Submit Survey
         </button>
       </div>
     );
   }
 
-  // Render results screen
+  // Render survey results screen
   if (showResults) {
-    // Count only single choice questions for scoring
-    const totalSingleChoice = questions.filter(
-      (q) => q.type === "single-choice"
-    ).length;
-
     return (
       <div className="flex flex-col items-center justify-center p-8 bg-white rounded-xl shadow-lg max-w-md mx-auto">
-        <div className="w-20 h-20 mb-6 bg-blue-100 rounded-full flex items-center justify-center">
-          <span className="text-3xl">
-            {score === totalSingleChoice ? "🎉" : "📝"}
-          </span>
+        <div className="w-20 h-20 mb-6 bg-green-100 rounded-full flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+          </svg>
         </div>
-        <h2 className="text-2xl font-bold mb-4 text-gray-800">Quiz Results</h2>
+        <h2 className="text-2xl font-bold mb-4 text-gray-800">Thank You!</h2>
+        <p className="text-gray-600 mb-8 text-center">
+          We appreciate you taking the time to complete our Media One survey. Your feedback is valuable and will help us improve our content.
+        </p>
 
-        {/* Score with Name and Number */}
-        <div className="w-full mb-6 p-5 bg-blue-50 rounded-lg border border-blue-100">
-          <div className="grid grid-cols-2 gap-4">
-            <div className="col-span-2 md:col-span-1">
-              <h3 className="text-lg font-semibold mb-3 text-blue-800">
-                Score
-              </h3>
-              <div className="text-3xl font-bold text-blue-700">
-                {score} / {totalSingleChoice}
-              </div>
-              <p className="text-sm text-gray-600 mt-1">
-                {score === totalSingleChoice
-                  ? "Perfect! You're a React expert!"
-                  : score >= totalSingleChoice / 2
-                  ? "Good job! Keep learning."
-                  : "Keep practicing to improve your knowledge."}
-              </p>
+        {/* Your Details */}
+        <div className="w-full mb-8 p-5 bg-blue-50 rounded-lg border border-blue-100">
+          <h3 className="text-lg font-semibold mb-3 text-blue-800">
+            Your Details
+          </h3>
+          <div className="space-y-2">
+            <div className="flex items-center">
+              <span className="text-gray-600 mr-2">👤</span>
+              <span className="font-medium">{name}</span>
             </div>
-
-            <div className="col-span-2 md:col-span-1">
-              <h3 className="text-lg font-semibold mb-3 text-blue-800">
-                Your Details
-              </h3>
-              <div className="space-y-1">
-                <div className="flex items-center">
-                  <span className="text-gray-600 mr-2">👤</span>
-                  <span className="font-medium">{name}</span>
-                </div>
-                <div className="flex items-center">
-                  <span className="text-gray-600 mr-2">📱</span>
-                  <span className="font-medium">
-                    {countryCode} {mobile}
-                  </span>
-                </div>
-              </div>
+            <div className="flex items-center">
+              <span className="text-gray-600 mr-2">📱</span>
+              <span className="font-medium">
+                {countryCode} {mobile}
+              </span>
             </div>
           </div>
         </div>
 
-        {/* Display all answers */}
-        <div className="w-full mb-6">
-          <h3 className="text-lg font-semibold mb-3 text-gray-700">
-            Your Responses:
-          </h3>
-          {answers.map((answer, index) => {
-            const q = questions.find((q) => q.id === answer.questionId);
-            return (
-              <div key={index} className="mb-4 p-4 bg-gray-50 rounded-lg">
-                <p className="font-medium text-gray-700 mb-2">{q?.question}</p>
-
-                {answer.type === "opinion" && (
-                  <p className="text-gray-600">{answer.answer}</p>
-                )}
-
-                {answer.type === "single-choice" && (
-                  <p
-                    className={`text-gray-600 ${
-                      answer.correct
-                        ? "text-green-600 font-medium"
-                        : "text-red-600"
-                    }`}
-                  >
-                    {q?.options[answer.answer]}
-                    {answer.correct
-                      ? " ✓"
-                      : ` ✗ (Correct: ${q?.options[q.correctAnswer]})`}
-                  </p>
-                )}
-
-                {answer.type === "multiple-select" && (
-                  <div className="text-gray-600">
-                    <p className="mb-2">You selected:</p>
-                    <ul className="list-disc ml-6">
-                      {answer.answer.map((optionIndex) => (
-                        <li key={optionIndex}>{q?.options[optionIndex]}</li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
-
-        <div className="flex flex-col gap-3 w-full">
-          <button
-            onClick={handleRestart}
-            className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
-          >
-            Take Quiz Again
-          </button>
+        <div className="flex flex-col gap-4 w-full">
           <button
             onClick={() => navigate("/dashboard")}
-            className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium"
+            className="px-6 py-4 bg-gray-800 text-white rounded-lg hover:bg-gray-900 transition-colors font-medium flex items-center justify-center shadow-md"
           >
-            Go to Dashboard
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+            </svg>
+            Return to Dashboard
+          </button>
+          <button
+            onClick={handleRestart}
+            className="px-6 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium flex items-center justify-center shadow-md"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clipRule="evenodd" />
+            </svg>
+            Take Another Survey
           </button>
         </div>
       </div>
@@ -478,14 +426,11 @@ function Form() {
           <span className="text-sm font-medium text-gray-600">
             Question {currentQuestion + 1} of {questions.length}
           </span>
-          <span className="text-sm font-medium text-gray-600">
-            Score: {score}
-          </span>
         </div>
         <div className="w-full bg-gray-200 rounded-full h-2.5">
           <div
             className="bg-blue-600 h-2.5 rounded-full transition-all"
-            style={{ width: `${(currentQuestion / questions.length) * 100}%` }}
+            style={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
           ></div>
         </div>
       </div>
@@ -496,77 +441,11 @@ function Form() {
           {currentQ.question}
         </h2>
         <p className="text-sm text-gray-500">
-          {currentQ.type === "single-choice"
-            ? "Select the best answer from the options below"
-            : currentQ.type === "multiple-select"
+          {currentQ.type === "multiple-select"
             ? "Select all options that apply"
             : "Share your thoughts and experience"}
         </p>
       </div>
-
-      {/* Single choice options */}
-      {currentQ.type === "single-choice" && (
-        <div className="space-y-3 mb-6">
-          {currentQ.options.map((option, index) => {
-            let optionClass =
-              "p-4 border-2 rounded-lg cursor-pointer transition-all ";
-
-            if (showFeedback) {
-              if (index === currentQ.correctAnswer) {
-                optionClass += "bg-green-50 border-green-500 text-green-700";
-              } else if (
-                index === selectedOption &&
-                index !== currentQ.correctAnswer
-              ) {
-                optionClass += "bg-red-50 border-red-500 text-red-700";
-              } else {
-                optionClass += "border-gray-200 text-gray-500";
-              }
-            } else {
-              optionClass +=
-                selectedOption === index
-                  ? "bg-blue-50 border-blue-500 text-blue-700"
-                  : "border-gray-200 hover:border-gray-300 hover:bg-gray-50";
-            }
-
-            return (
-              <div
-                key={index}
-                className={optionClass}
-                onClick={() => !showFeedback && handleOptionSelect(index)}
-              >
-                <div className="flex items-center">
-                  <div
-                    className={`w-6 h-6 flex items-center justify-center rounded-full mr-3 ${
-                      showFeedback
-                        ? index === currentQ.correctAnswer
-                          ? "bg-green-500 text-white"
-                          : index === selectedOption
-                          ? "bg-red-500 text-white"
-                          : "border-2 border-gray-300"
-                        : selectedOption === index
-                        ? "bg-blue-500 text-white"
-                        : "border-2 border-gray-300"
-                    }`}
-                  >
-                    {showFeedback
-                      ? index === currentQ.correctAnswer
-                        ? "✓"
-                        : index === selectedOption &&
-                          index !== currentQ.correctAnswer
-                        ? "✗"
-                        : ""
-                      : selectedOption === index
-                      ? "✓"
-                      : ""}
-                  </div>
-                  <span>{option}</span>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      )}
 
       {/* Multiple select options */}
       {currentQ.type === "multiple-select" && (
@@ -617,52 +496,21 @@ function Form() {
         </div>
       )}
 
-      {/* Feedback message for single choice */}
-      {showFeedback && currentQ.type === "single-choice" && (
-        <div
-          className={`p-4 mb-6 rounded-lg ${
-            isCorrect ? "bg-green-50 text-green-800" : "bg-red-50 text-red-800"
-          }`}
-        >
-          <p className="font-medium">
-            {isCorrect
-              ? "Correct! Well done."
-              : `Incorrect. The correct answer is: ${
-                  currentQ.options[currentQ.correctAnswer]
-                }`}
-          </p>
-        </div>
-      )}
-
       {/* Action button */}
       <button
-        onClick={showFeedback ? handleNext : handleSubmit}
+        onClick={handleSubmit}
         disabled={
-          (currentQ.type === "single-choice" &&
-            selectedOption === null &&
-            !showFeedback) ||
           (currentQ.type === "opinion" && !opinionText.trim()) ||
           (currentQ.type === "multiple-select" && selectedOptions.length === 0)
         }
         className={`px-5 py-3 rounded-lg transition-colors font-medium ${
-          (currentQ.type === "single-choice" &&
-            selectedOption === null &&
-            !showFeedback) ||
           (currentQ.type === "opinion" && !opinionText.trim()) ||
           (currentQ.type === "multiple-select" && selectedOptions.length === 0)
             ? "bg-gray-200 text-gray-500 cursor-not-allowed"
-            : showFeedback
-            ? "bg-green-600 text-white hover:bg-green-700"
             : "bg-blue-600 text-white hover:bg-blue-700"
         }`}
       >
-        {showFeedback
-          ? currentQuestion === questions.length - 1
-            ? "Complete Quiz"
-            : "Next Question"
-          : currentQ.type === "single-choice"
-          ? "Check Answer"
-          : "Continue"}
+        {currentQuestion === questions.length - 1 ? "Submit Response" : "Continue"}
       </button>
     </div>
   );
