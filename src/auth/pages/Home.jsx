@@ -34,16 +34,22 @@ function Home() {
           <h1 className="text-2xl font-bold text-blue-600">
             Welcome to Your App
           </h1>
-          <Link to="/form">
-            <button className="bg-blue-500 text-white p-4 mt-4 py-2 px-5  rounded hover:bg-blue-600">
-              Start
-            </button>
-          </Link>
-          <Link to="/dashboard">
-            <button className="bg-blue-500 text-white p-4 mt-4 py-2 px-5  rounded hover:bg-blue-600">
-              Dashboard
-            </button>
-          </Link>
+          <div className="flex gap-4 mt-4">
+          <div className="flex gap-4 mt-4">
+  <Link to="/form">
+    <button className="bg-white text-blue-600 border border-blue-600 hover:bg-blue-50 font-medium py-2 px-6 rounded-lg transition duration-300">
+      Start
+    </button>
+  </Link>
+  <Link to="/dashboard">
+    <button className="bg-blue-600 text-white hover:bg-blue-700 font-medium py-2 px-6 rounded-lg transition duration-300">
+      Dashboard
+    </button>
+  </Link>
+</div>
+
+</div>
+
         </div>
       )}
     </div>
