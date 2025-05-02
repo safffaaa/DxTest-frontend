@@ -320,7 +320,7 @@ function Form() {
               ) : (
                 countries.map((country) => (
                   <option key={country._id} value={country.code}>
-                    {country.key} +{country.code}
+                    {country.key} {country.code}
                   </option>
                 ))
               )}
